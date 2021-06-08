@@ -96,7 +96,9 @@ template <typename T>
 void Matrix<T>::Tr () {
 
  std::vector<std::vector<T>> res ( this->col, std::vector<T>(this->row, 0 ) ) ; 
-
+ 
+ 
+ 
 for (int row_idx = 0; row_idx != this->row; ++row_idx) {
 	for (int col_idx = 0; col_idx != this->col ; ++col_idx) {
 
@@ -105,7 +107,12 @@ for (int row_idx = 0; row_idx != this->row; ++row_idx) {
 
 //std::copy ( res.begin(),res.end(),back_inserter(this->matrix)) ; 
 this->matrix.assign(res.begin(),res.end()) ; 
-       	
+ 
+const int temp = this->col ;
+ this->col = this->row ; 
+ this->row = temp ; 
+ 
+      	
 }
 
 
