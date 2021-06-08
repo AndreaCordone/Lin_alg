@@ -4,6 +4,9 @@
 #include<algorithm> 
 #include<iterator> 
 
+
+
+
 template <typename T >
 class Matrix {
 
@@ -14,7 +17,8 @@ class Matrix {
 		T dimension (const uint & idx) ; 
 		T & operator () ( const uint &row_idx, const uint &col_idx ) ; 
 		T operator () ( const uint &row_idx, const uint &col_idx ) const ; 
-		
+		void Tr () ; 
+	
 		template <typename U>
 		friend std::ostream& operator << ( std::ostream & out, const Matrix<U> & a) ;  		
 
@@ -39,7 +43,11 @@ Matrix<T>::Matrix ( const uint & n_row, const uint & n_col, T matrix_element)
 template <typename T>
 Matrix<T>::Matrix (std::initializer_list<std::vector<T>>   init_list) 
 		:matrix(init_list) 
-{}
+{
+this->row = this->matrix.size() ; 
+this->col = this->matrix[0].size() ; 
+
+}
 
 // Return the element of a matrix 
 template <typename T>  
@@ -81,5 +89,26 @@ std::ostream& operator<< (std::ostream& out, const Matrix<U> & a) {
 
       return out ; 
   }
+
+
+// Methods to perform the transpose 
+template <typename T> 
+void Matrix<T>::Tr () {
+
+ std::vector<std::vector<T>> res ( this->col, std::vector<T>(this->row, 0 ) ) ; 
+
+for (int row_idx = 0; row_idx != this->row; ++row_idx) {
+	for (int col_idx = 0; col_idx != this->col ; ++col_idx) {
+
+		res[col_idx][row_idx] = this->matrix[row_idx][col_idx]  ;
+} }
+
+//std::copy ( res.begin(),res.end(),back_inserter(this->matrix)) ; 
+this->matrix.assign(res.begin(),res.end()) ; 
+       	
+}
+
+
+
 
 
