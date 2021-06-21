@@ -21,13 +21,15 @@ class Matrix {
 		T dimension (const uint & idx) const ;
 		T & operator () ( const uint &row_idx, const uint &col_idx ) ; 
 		T operator () ( const uint &row_idx, const uint &col_idx ) const ; 
+		
+		//Method for the ranspose 	
 		void Tr () ; 
 		
 		// Method for scalar multiplication
 		template <typename U>	
 		friend Matrix<U> operator * ( const Matrix<U> & a, const  U & scalar ) ; 
 
-	
+		// Method to print the matrix 
 		template <typename U>
 		friend std::ostream& operator << ( std::ostream & out, const Matrix<U> & a) ;  		
 
@@ -41,7 +43,7 @@ class Matrix {
 
 
 
-// Constructor with a std::vector<std::vector<>>
+// Constructor with a std::vector<std::vector<T>>
 
 template <typename T> 
 Matrix<T>::Matrix (  const uint & n_row, const uint & n_col, std::vector<std::vector<T>> matrix_) 
