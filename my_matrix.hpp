@@ -11,15 +11,25 @@ template <typename T >
 class Matrix {
 
 	public:
-		Matrix ( const uint & row, const uint & col) ; 
-		Matrix ( const uint & row, const uint & col, T matrix_element ) ;  
-		Matrix ( std::initializer_list<std::vector<T>> init_list ) ; 
+		// COnstructor to create an empty matrix
+		Matrix ( const uint & row, const uint & col) ;
+	        // Constructor to create a matrix populated only by one element	
+		Matrix ( const uint & row, const uint & col, T matrix_element ) ; 
+	        // Constructor to create a matrix with initialization list 	
+		Matrix ( std::initializer_list<std::vector<T>> init_list ) ;
+	        // Constructor with a std::vector<std::vector>>	
                 Matrix ( const uint & row,const uint & col, std::vector<std::vector<T>>) ; 
 		
+		// Return the std::vector<std::vector>>
 		std::vector<std::vector<T>> get_matrix () const; 
-	
-		T dimension (const uint & idx) const ;
+	        
+		// Return the dimension of the matrix 
+	        T dimension (const uint & idx) const ;
+		
+		// Change an element of the matrix  
 		T & operator () ( const uint &row_idx, const uint &col_idx ) ; 
+		
+		// Return the elemt of the matrix 
 		T operator () ( const uint &row_idx, const uint &col_idx ) const ; 
 		
 		//Method for the ranspose 	
@@ -32,6 +42,10 @@ class Matrix {
 		// Method to print the matrix 
 		template <typename U>
 		friend std::ostream& operator << ( std::ostream & out, const Matrix<U> & a) ;  		
+		
+		// Methods to perform 
+
+
 
 	private:
 
@@ -147,6 +161,7 @@ for (int row_idx = 0; row_idx != this->row; ++row_idx) {
 template <typename T>
 std::vector<std::vector<T>> Matrix<T>::get_matrix () const { return this->matrix ; }  
 
+// Multuply by a scalar 
 template <typename U>	
 Matrix<U> operator * (const Matrix<U> & a, const U & scalar ) {
 
@@ -164,4 +179,30 @@ Matrix<U> res (a.dimension(1),a.dimension(2),dst) ;
  
 return  res ; 
 } 
+
+
+// Methods to perform matrix multiplication 
+template <typename T>
+Matrix<T> operator * (const Matrix<T> & a , const Matrix<T> & b ) {
+
+if (  a.dimension(2)!= b.dimension(1) ) { 
+         	throw "Number of column of first matrix does not match number of rows"; 
+}  
+	
+Matrix<T> res (a.dimension(1) , b.dimension(2) ) ; 
+
+ for ( uint i = 0; i<a.dimension(1); i++ ) {
+
+	for ( uint k =  0 ; k<a.dimension(2) ; k++ ) {
+
+		res(i,k)  += a(i,k)*b(i,k) ;  
+
+	}
+
+ }
+return res ; 
+}	
+
+
+
 
