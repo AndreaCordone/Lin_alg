@@ -13,13 +13,17 @@ class Matrix {
 	public:
 		// Constructor to create an empty matrix
 		Matrix ( const uint & row, const uint & col) ;
-	        // Constructor to create a matrix populated only by one element	
+	        
+		// Constructor to create a matrix populated only by one element	
 		Matrix ( const uint & row, const uint & col, T matrix_element ) ; 
-	        // Constructor to create a matrix with initialization list 	
+	        
+		// Constructor to create a matrix with initialization list 	
 		Matrix ( std::initializer_list<std::vector<T>> init_list ) ;
-	        // Constructor with a std::vector<std::vector>>	
-                Matrix ( const uint & row,const uint & col, std::vector<std::vector<T>>) ; 
-	        // Copy constructor 
+	        
+		// Constructor with a std::vector<std::vector>>	
+                Matrix ( std::vector<std::vector<T>>) ; 
+	        
+		// Copy constructor 
 		Matrix ( const Matrix<T>  &a ) {matrix = a.get_matrix(); } ; 
 
 		// Return the std::vector<std::vector>>
@@ -39,6 +43,11 @@ class Matrix {
 		// Return the elemt of the matrix 
 		T operator () ( const uint &row_idx, const uint &col_idx ) const ; 
 		
+		// Implement method to extarct submatrices	
+		
+		// Return the determinant 
+	        double determinant () ; 			
+			
 		//Method for the ranspose 	
 		void Tr () ; 
 		
@@ -51,8 +60,8 @@ class Matrix {
 		friend std::ostream& operator << ( std::ostream & out, const Matrix<U> & a) ;  		
 		
 		// Methods to perform the determinant
-		Matrix<T> gauss_elimination() ; 
-
+		//Matrix<T> gauss_elimination() ; 
+		Matrix<T> gauss_elimination() ;
 		// Matrix multiplication 
 
 
@@ -62,6 +71,8 @@ class Matrix {
 
 		uint row ; 
 		uint col ;	
+		uint n ; 
+		int sign ; 
 		std::vector<std::vector<T>> matrix ; 
 
 } ;
@@ -71,9 +82,9 @@ class Matrix {
 // Constructor with a std::vector<std::vector<T>>
 
 template <typename T> 
-Matrix<T>::Matrix (  const uint & n_row, const uint & n_col, std::vector<std::vector<T>> matrix_) 
-		: row(n_row)
-		, col(n_col)
+Matrix<T>::Matrix (std::vector<std::vector<T>> matrix_) 
+		: row(matrix_.size())
+		, col(matrix_[0].size())
 		, matrix(matrix_) {} 
 
 // Simple constructor  
@@ -150,25 +161,36 @@ std::ostream& operator<< (std::ostream& out, const Matrix<U> & a) {
 template <typename T>
 std::vector<T> Matrix<T>::diag(const int id ) const  
 {
+	if ( this->dimension(1) != this->dimension(2) ) 
+		throw std::invalid_argument("Diagonal only available for Square matrix");  
+
+
 
 	std::vector<T> diagonal ; 
 
-if (id <= 0 ) {
-
-
-	std::copy ( matrix[0+id].begin(), matrix[row].end(), diagonal.begin() ) ; 
+	if (id <= 0 ) 
+{
+		
+	
+	for ( size_t i = 0; i<row ; ++i)
+	{ 
+			diagonal.push_back(matrix[i+id][i]) ; 
+	}
 
 }	
-else {
-
-
-std::copy ( &matrix[0][0+id], &matrix[row][col], diagonal.begin() ) ; 
-
-
+	
+	else
+{
+	for ( size_t i = 0 ; i<row ; ++i ) 
+	{	
+		diagonal.push_back(matrix[i][i+id]) ; 
+	}
 
 }
 
-return diagonal  ; }
+return diagonal; 
+
+}
 
 
 
@@ -250,50 +272,79 @@ Matrix<T> res (a.dimension(1) , b.dimension(2) ) ;
 return res ; 
 }	
 
-
+// Gauss elimination 
 template <typename T>
 Matrix<T> Matrix<T>::gauss_elimination()  {
 
-if ( this->dimension(1) != this->dimension(2) ) {
+	if ( this->dimension(1) != this->dimension(2) ) 
+{
 
 	throw std::invalid_argument ( " Gauss elimination only implemented for square matrices" ) ; 
 }
 
-Matrix<T> res = &this ;  
-
+	std::vector<std::vector<T>> res  = this->matrix;   
+        
 
 		
-for( unsigned int i = 0; i<row-1 ; i++ ) {
+	for( unsigned int i = 0; i<row-1 ; i++ ) 
+	{
 
-	if ( res(i,i) == 0 ) 
+		if ( res[i][i] == 0 ) 
 
-	{  
-		
+		{  
+			T max_el = 0 ; 
+			size_t idx_max = 0 ; 
 
-	}
+			for ( size_t k = i+1 ; k<col-1 ; ++k ) 
+			{
+				if (std::abs(res[i+1][k]) > max_el)  
+				{  
+					max_el  = res[k][i] ;
+					idx_max = k ; 
+				}
+			}		
+			
+			std::vector<T> temp = res[i]; 
+			res[i] = res[idx_max];
+		        res[idx_max] = temp ; 	
+			sign = sign*-1 ; 	
+		}	
 
 
 
 	for (unsigned int j = i+1; j<col ; j++) {
 
 
-	T factor = res(j,i) / res(i,i) ; 
+	T factor = res[j][i] / res[i][i] ; 
 			
 	      for ( unsigned int k = i ; k < col ; k++ ) {
 
-                           res(j,k) = res(j,k) - factor*res(i,k) ; 
+                           res[j][k] = res[j][k] - factor*res[i][k] ; 
                            
 
 			}		
 	}
 }
 
-return res ; 
+
+Matrix<T> result (res)  ; 
+result.sign = sign ; 
+return result; 
 
 }
 
+template <typename T>
+double Matrix<T>::determinant() 
+{
+
+	Matrix<T> up_triag = this.gauss_elimination() ; 
+	std::vector<T> diag = up_triag.diag(); 
+       	double det = 
 
 
+
+
+}
 
 
 
