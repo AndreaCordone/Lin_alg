@@ -3,8 +3,8 @@
 #include<iostream>
 #include<algorithm> 
 #include<iterator> 
-
-
+#include<numeric>
+#include<random>
 
 
 template <typename T >
@@ -23,8 +23,10 @@ class Matrix {
 		// Constructor with a std::vector<std::vector>>	
                 Matrix ( std::vector<std::vector<T>>) ; 
 	        
-		// Copy constructor 
-		Matrix ( const Matrix<T>  &a ) {matrix = a.get_matrix(); } ; 
+		// Constructor with random number 
+		Matrix ( const uint & row, const uint & col, const double & mean, const double & sd) ; 
+
+	        	
 
 		// Return the std::vector<std::vector>>
 		std::vector<std::vector<T>> get_matrix () const; 
@@ -33,6 +35,8 @@ class Matrix {
 		//Method to retutn the diagonal of a matrix 
 		std::vector<T> diag(const int id) const ; 
 
+		// Extract submatrix
+		Matrix<T> operator () (const uint &row_1 , const uint &row_2 , const uint &col_1 , const uint &col_2 ) ;  
 
 		// Return the dimension of the matrix 
 	        T dimension (const uint & idx) const ;
@@ -41,11 +45,10 @@ class Matrix {
 		T & operator () ( const uint &row_idx, const uint &col_idx ) ; 
 		
 		// Return the elemt of the matrix 
-		T operator () ( const uint &row_idx, const uint &col_idx ) const ; 
+		T operator () ( const uint &row_idx, const uint &col_idx ) const ;
 		
-		// Implement method to extarct submatrices	
-		
-		// Return the determinant 
+	
+                // Return the determinant 
 	        double determinant () ; 			
 			
 		//Method for the ranspose 	
@@ -60,9 +63,10 @@ class Matrix {
 		friend std::ostream& operator << ( std::ostream & out, const Matrix<U> & a) ;  		
 		
 		// Methods to perform the determinant
+		T det(); 
+		
 		//Matrix<T> gauss_elimination() ; 
 		Matrix<T> gauss_elimination() ;
-		// Matrix multiplication 
 
 
 
@@ -113,6 +117,36 @@ Matrix<T>::Matrix (std::initializer_list<std::vector<T>>   init_list)
 	this->col = this->matrix[0].size() ; 
 
 }
+
+
+// Construct random matrix 
+template <typename T>  
+Matrix<T>::Matrix (const uint & row , const uint & col, const double & mean, const double &sd )
+		: row(row)
+		, col(col)
+		, matrix(row, std::vector<T>(col, 0))
+
+{
+	
+	
+ 	
+		
+	std::random_device rd{};
+	std::mt19937 gen{rd()};
+        std::normal_distribution<T> d{mean,sd};
+
+
+	for (size_t i = 0 ;  i<row;  ++i) 
+	{
+		for (size_t k =0 ;  k<col ;  ++k) 
+		{
+		      matrix[i][k] =  d(gen) ;  	
+		
+		}
+	}
+ 
+}
+
 
 // Return the element of a matrix 
 template <typename T>  
@@ -193,13 +227,6 @@ return diagonal;
 }
 
 
-
-
-
-
-
-
-
 // Methods to perform the transpose 
 template <typename T> 
 void Matrix<T>::Tr () {
@@ -226,6 +253,7 @@ for (int row_idx = 0; row_idx != this->row; ++row_idx) {
 // Return the std::vector<std::vector>> attribute 
 template <typename T>
 std::vector<std::vector<T>> Matrix<T>::get_matrix () const { return this->matrix ; }  
+
 
 // Multuply by a scalar 
 template <typename U>	
@@ -272,6 +300,7 @@ Matrix<T> res (a.dimension(1) , b.dimension(2) ) ;
 return res ; 
 }	
 
+
 // Gauss elimination 
 template <typename T>
 Matrix<T> Matrix<T>::gauss_elimination()  {
@@ -312,17 +341,18 @@ Matrix<T> Matrix<T>::gauss_elimination()  {
 
 
 
-	for (unsigned int j = i+1; j<col ; j++) {
+	for (unsigned int j = i+1; j<col ; j++) 
+	{
 
 
-	T factor = res[j][i] / res[i][i] ; 
+	      T factor = res[j][i] / res[i][i] ; 
 			
-	      for ( unsigned int k = i ; k < col ; k++ ) {
+	      for ( unsigned int k = i ; k < col ; k++ ) 
+	      {
 
                            res[j][k] = res[j][k] - factor*res[i][k] ; 
                            
-
-			}		
+	      }		
 	}
 }
 
@@ -333,22 +363,42 @@ return result;
 
 }
 
+
+// Return the determinant 
 template <typename T>
-double Matrix<T>::determinant() 
+T Matrix<T>::det() 
 {
 
 	Matrix<T> up_triag = this.gauss_elimination() ; 
 	std::vector<T> diag = up_triag.diag(); 
-       	double det = 
-
-
+       	double det = std::accumulate(begin(diag), end(diag), 1, std::multiplies<T>());
 
 
 }
 
+// Return the submatrix 
+template <typename T>
+Matrix<T> Matrix<T>::operator () ( const uint &row1, const uint &row2, const uint &col1, const uint &col2) 
+{
+		
+		unsigned int size_row = row2-row1 +1 ; 
+		unsigned int size_col = col2-col1 +1 ; 
 
+		std::vector<std::vector<T>> res ( size_row , std::vector<T>(size_col, 0))  ; 
+		
+		for ( size_t i = row1; i<=row2 ; ++i ) 
+		{
+			
+			for ( size_t k=col1; k<= col2; ++k ) 
+			{
+				
+				res[i-row1][k-col1] = this->matrix[i][k] ; 
+			}
+		}	
 
-
+	Matrix<T> result (res) ; 		
+	return result;	
+}	
 
 
 
