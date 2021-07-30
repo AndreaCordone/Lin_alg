@@ -5,34 +5,81 @@
 #include<iterator> 
 #include<numeric>
 #include<random>
+/**
+*@file my_matrix.hpp
+*@author Andrea Cordone
+*
+*/
+///@brief Class template of a matrix to make linear algebra task (hopefully) more friendly 
 
 
 template <typename T >
 class Matrix {
 
 	public:
-		// Constructor to create an empty matrix
-		Matrix ( const uint & row, const uint & col) ;
+
+		/**
+		* 		
+		*@brief Constructor to create an empty matrix.
+		*
+		*@param row Number of rows. 
+		*@param col Number of columns.
+		*/
+		Matrix (const uint & row, const uint & col);
 	        
-		// Constructor to create a matrix populated only by one element	
-		Matrix ( const uint & row, const uint & col, T matrix_element ) ; 
+		/**
+		*
+		*@brief  Constructor to create a matrix populated by a given value.	
+		*
+		*@param row Number of rows.
+		*@param col Number of cols.
+		*@param matrix_element Numerical value used to fill the matrix.
+		**/ 
+		Matrix (const uint & row, const uint & col, T matrix_element) ; 
 	        
-		// Constructor to create a matrix with initialization list 	
-		Matrix ( std::initializer_list<std::vector<T>> init_list ) ;
+		/**
+		*
+		*@brief Constructor to initialize with an curly brace initialization list. 
+		*
+		*
+		*@tparam T Any real-like type such as double, float, or long double. 
+		*@param init_list Initialization list. 
+		**/ 
+		Matrix (std::initializer_list<std::vector<T>> init_list);
 	        
-		// Constructor with a std::vector<std::vector>>	
-                Matrix ( std::vector<std::vector<T>>) ; 
+		/**
+		*@brief Constructor via a vector of vector
+		*
+		*@param matrix_ A usual  vector of vector from STD
+		*/
+                Matrix ( std::vector<std::vector<T>> ) ; 
 	        
-		// Constructor with random number 
+		/** 
+		*@brief Constructor of a random valued matrix
+		*
+		*@param 	row Number of rows
+		*@param 	col Number of columns
+		*@param		mean Mean of the normal distribution
+		*@param 	sd Standard deviation of the normal distribution
+		*/ 
 		Matrix ( const uint & row, const uint & col, const double & mean, const double & sd) ; 
 
 	        	
 
-		// Return the std::vector<std::vector>>
+		/**
+		*@brief  Return the std::vector<std::vector<T>>> attribute of the class
+		*
+		*
+		**/ 
 		std::vector<std::vector<T>> get_matrix () const; 
 	        
 		
-		//Method to retutn the diagonal of a matrix 
+		/**
+		*
+		*@brief Method to return the diagonal of a matrix.
+		*@param id Integer number indicating which diagonal to extract.
+		*@note The main diagonals has id = 0. The lower diagonal have negative id while upper diagonals have positive id.
+		*/
 		std::vector<T> diag(const int id) const ; 
 
 		// Extract submatrix
@@ -93,30 +140,29 @@ Matrix<T>::Matrix (std::vector<std::vector<T>> matrix_)
 
 // Simple constructor  
 template <typename T>
-Matrix<T>::Matrix ( const uint & n_row, const uint & n_col) 
+Matrix<T>::Matrix (const uint & n_row, const uint & n_col) 
 		: row(n_row)
 		, col(n_col)
-		,matrix(row,std::vector<T>(col)) {} 
+		, matrix(row,std::vector<T>(col)) {} 
 
 
 
-// Constructor: Create a matrix with n_row and n_column with all elemt eqaul  
+// Constructor: Create a matrix with n_row and n_column with a single value  
 template <typename T> 
-Matrix<T>::Matrix ( const uint & n_row, const uint & n_col, T matrix_element) 
+Matrix<T>::Matrix (const uint & n_row, const uint & n_col, T matrix_element) 
 		: row(n_row)
 		, col(n_col)
-                , matrix(row, std::vector<T>(col, matrix_element)) 
-{}
+		, matrix(row, std::vector<T>(col, matrix_element)){}
 
 // Constructor with an initialization list 
 template <typename T>
 Matrix<T>::Matrix (std::initializer_list<std::vector<T>>   init_list) 
-		:matrix(init_list) 
-{
-	this->row = this->matrix.size() ; 
-	this->col = this->matrix[0].size() ; 
-
-}
+		
+		: matrix(init_list) 
+		{
+			this->row = this->matrix.size() ; 
+			this->col = this->matrix[0].size() ;
+		}
 
 
 // Construct random matrix 
@@ -127,10 +173,6 @@ Matrix<T>::Matrix (const uint & row , const uint & col, const double & mean, con
 		, matrix(row, std::vector<T>(col, 0))
 
 {
-	
-	
- 	
-		
 	std::random_device rd{};
 	std::mt19937 gen{rd()};
         std::normal_distribution<T> d{mean,sd};

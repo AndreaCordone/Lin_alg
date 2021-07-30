@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['matrix_14',['Matrix',['../classMatrix.html',1,'']]]
+  ['matrix',['Matrix',['../classMatrix.html',1,'']]]
 ];

@@ -1,0 +1,306 @@
+\hypertarget{classMatrix}{}\section{Matrix$<$ T $>$ Class Template Reference}
+\label{classMatrix}\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+
+
+Class template of a matrix to make linear algebra task (hopefully) more friendly.  
+
+
+
+
+{\ttfamily \#include $<$my\+\_\+matrix.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMatrix_a0e344d342fe0ad5b208c69f9aa909306}{Matrix} (const uint \&row, const uint \&col)
+\begin{DoxyCompactList}\small\item\em Constructor to create an empty matrix. \end{DoxyCompactList}\item 
+\hyperlink{classMatrix_acb7869d94f5e02b024a0d39d03ec78bd}{Matrix} (const uint \&row, const uint \&col, T matrix\+\_\+element)
+\begin{DoxyCompactList}\small\item\em Constructor to create a matrix populated by a given value. \end{DoxyCompactList}\item 
+\hyperlink{classMatrix_ad9291e60f6af703b79de72d8bcfa777b}{Matrix} (std\+::initializer\+\_\+list$<$ std\+::vector$<$ T $>$$>$ init\+\_\+list)
+\begin{DoxyCompactList}\small\item\em Constructor to initialize with an curly brace initialization list. \end{DoxyCompactList}\item 
+\hyperlink{classMatrix_aace9a20f83d726ffb813fe40ea16bf84}{Matrix} (std\+::vector$<$ std\+::vector$<$ T $>$$>$)
+\begin{DoxyCompactList}\small\item\em Constructor via a vector of vector. \end{DoxyCompactList}\item 
+\hyperlink{classMatrix_a2b6e9de6b55a40317911aa6c7adfa72a}{Matrix} (const uint \&row, const uint \&col, const double \&mean, const double \&sd)
+\begin{DoxyCompactList}\small\item\em Constructor of a random valued matrix. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrix_a42241ef961d7b919f3ec952e16ae0b55}\label{classMatrix_a42241ef961d7b919f3ec952e16ae0b55}} 
+std\+::vector$<$ std\+::vector$<$ T $>$ $>$ \hyperlink{classMatrix_a42241ef961d7b919f3ec952e16ae0b55}{get\+\_\+matrix} () const
+\begin{DoxyCompactList}\small\item\em Return the std\+::vector$<$std\+::vector$<$\+T$>$$>$$>$ attribute of the class. \end{DoxyCompactList}\item 
+std\+::vector$<$ T $>$ \hyperlink{classMatrix_afdc70f8e656996481f5a6b970189c64b}{diag} (const int id) const
+\begin{DoxyCompactList}\small\item\em Method to return the diagonal of a matrix. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMatrix_a3a9452f46689001f2f262f13d4600ea9}\label{classMatrix_a3a9452f46689001f2f262f13d4600ea9}} 
+\hyperlink{classMatrix}{Matrix}$<$ T $>$ {\bfseries operator()} (const uint \&row\+\_\+1, const uint \&row\+\_\+2, const uint \&col\+\_\+1, const uint \&col\+\_\+2)
+\item 
+\mbox{\Hypertarget{classMatrix_afdf86fadf4ac353f6f32e780a5016c25}\label{classMatrix_afdf86fadf4ac353f6f32e780a5016c25}} 
+T {\bfseries dimension} (const uint \&idx) const
+\item 
+\mbox{\Hypertarget{classMatrix_a8396ba9c5609d2fb1014262fbf172479}\label{classMatrix_a8396ba9c5609d2fb1014262fbf172479}} 
+T \& {\bfseries operator()} (const uint \&row\+\_\+idx, const uint \&col\+\_\+idx)
+\item 
+\mbox{\Hypertarget{classMatrix_ae6ab8af0e5d03eb8fe5f31d037b2e207}\label{classMatrix_ae6ab8af0e5d03eb8fe5f31d037b2e207}} 
+T {\bfseries operator()} (const uint \&row\+\_\+idx, const uint \&col\+\_\+idx) const
+\item 
+\mbox{\Hypertarget{classMatrix_aa0347b091217f8ea2a928efd860d4d26}\label{classMatrix_aa0347b091217f8ea2a928efd860d4d26}} 
+double {\bfseries determinant} ()
+\item 
+\mbox{\Hypertarget{classMatrix_abb26547343d449fbedc5bd3b24120927}\label{classMatrix_abb26547343d449fbedc5bd3b24120927}} 
+void {\bfseries Tr} ()
+\item 
+\mbox{\Hypertarget{classMatrix_af531b530699d08cb75b3ceabf22618fb}\label{classMatrix_af531b530699d08cb75b3ceabf22618fb}} 
+T {\bfseries det} ()
+\item 
+\mbox{\Hypertarget{classMatrix_afe220c54165e01d7b3d528c8425aff07}\label{classMatrix_afe220c54165e01d7b3d528c8425aff07}} 
+\hyperlink{classMatrix}{Matrix}$<$ T $>$ {\bfseries gauss\+\_\+elimination} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMatrix_a1dc63135b1211215f22dd9f691eaf1f9}\label{classMatrix_a1dc63135b1211215f22dd9f691eaf1f9}} 
+{\footnotesize template$<$typename U $>$ }\\\hyperlink{classMatrix}{Matrix}$<$ U $>$ {\bfseries operator$\ast$} (const \hyperlink{classMatrix}{Matrix}$<$ U $>$ \&a, const U \&scalar)
+\item 
+\mbox{\Hypertarget{classMatrix_abe73619c6b45315d7efd6a2074ed71bd}\label{classMatrix_abe73619c6b45315d7efd6a2074ed71bd}} 
+{\footnotesize template$<$typename U $>$ }\\std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&out, const \hyperlink{classMatrix}{Matrix}$<$ U $>$ \&a)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Matrix$<$ T $>$}
+
+Class template of a matrix to make linear algebra task (hopefully) more friendly. 
+
+Definition at line 17 of file my\+\_\+matrix.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMatrix_a0e344d342fe0ad5b208c69f9aa909306}\label{classMatrix_a0e344d342fe0ad5b208c69f9aa909306}} 
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\subsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{classMatrix}{Matrix}$<$ T $>$\+::\hyperlink{classMatrix}{Matrix} (\begin{DoxyParamCaption}\item[{const uint \&}]{row,  }\item[{const uint \&}]{col }\end{DoxyParamCaption})}
+
+
+
+Constructor to create an empty matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & Number of rows. \\
+\hline
+{\em col} & Number of columns. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 143 of file my\+\_\+matrix.\+hpp.
+
+
+\begin{DoxyCode}
+144         : row(n\_row)
+145         , col(n\_col)
+146         , matrix(row,std::vector<T>(col)) \{\} 
+\end{DoxyCode}
+\mbox{\Hypertarget{classMatrix_acb7869d94f5e02b024a0d39d03ec78bd}\label{classMatrix_acb7869d94f5e02b024a0d39d03ec78bd}} 
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\subsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{classMatrix}{Matrix}$<$ T $>$\+::\hyperlink{classMatrix}{Matrix} (\begin{DoxyParamCaption}\item[{const uint \&}]{row,  }\item[{const uint \&}]{col,  }\item[{T}]{matrix\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+Constructor to create a matrix populated by a given value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & Number of rows. \\
+\hline
+{\em col} & Number of cols. \\
+\hline
+{\em matrix\+\_\+element} & Numerical value used to fill the matrix. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 152 of file my\+\_\+matrix.\+hpp.
+
+
+\begin{DoxyCode}
+153         : row(n\_row)
+154         , col(n\_col)
+155         , matrix(row, std::vector<T>(col, matrix\_element))\{\}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMatrix_ad9291e60f6af703b79de72d8bcfa777b}\label{classMatrix_ad9291e60f6af703b79de72d8bcfa777b}} 
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\subsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{classMatrix}{Matrix}$<$ T $>$\+::\hyperlink{classMatrix}{Matrix} (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ std\+::vector$<$ T $>$$>$}]{init\+\_\+list }\end{DoxyParamCaption})}
+
+
+
+Constructor to initialize with an curly brace initialization list. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Any real-\/like type such as double, float, or long double. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em init\+\_\+list} & Initialization list. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 159 of file my\+\_\+matrix.\+hpp.
+
+
+\begin{DoxyCode}
+161         : matrix(init\_list) 
+162         \{
+163             this->row = this->matrix.size() ; 
+164             this->col = this->matrix[0].size() ;
+165         \}
+\end{DoxyCode}
+\mbox{\Hypertarget{classMatrix_aace9a20f83d726ffb813fe40ea16bf84}\label{classMatrix_aace9a20f83d726ffb813fe40ea16bf84}} 
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\subsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{classMatrix}{Matrix}$<$ T $>$\+::\hyperlink{classMatrix}{Matrix} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ T $>$$>$}]{matrix\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+Constructor via a vector of vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrix\+\_\+} & A usual vector of vector from S\+TD \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 136 of file my\+\_\+matrix.\+hpp.
+
+
+\begin{DoxyCode}
+137         : row(matrix\_.size())
+138         , col(matrix\_[0].size())
+139         , matrix(matrix\_) \{\} 
+\end{DoxyCode}
+\mbox{\Hypertarget{classMatrix_a2b6e9de6b55a40317911aa6c7adfa72a}\label{classMatrix_a2b6e9de6b55a40317911aa6c7adfa72a}} 
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!Matrix@{Matrix}}
+\subsubsection{\texorpdfstring{Matrix()}{Matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{classMatrix}{Matrix}$<$ T $>$\+::\hyperlink{classMatrix}{Matrix} (\begin{DoxyParamCaption}\item[{const uint \&}]{row,  }\item[{const uint \&}]{col,  }\item[{const double \&}]{mean,  }\item[{const double \&}]{sd }\end{DoxyParamCaption})}
+
+
+
+Constructor of a random valued matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & Number of rows \\
+\hline
+{\em col} & Number of columns \\
+\hline
+{\em mean} & Mean of the normal distribution \\
+\hline
+{\em sd} & Standard deviation of the normal distribution \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 170 of file my\+\_\+matrix.\+hpp.
+
+
+\begin{DoxyCode}
+171         : row(row)
+172         , col(col)
+173         , matrix(row, std::vector<T>(col, 0))
+174 
+175 \{
+176     std::random\_device rd\{\};
+177     std::mt19937 gen\{rd()\};
+178         std::normal\_distribution<T> d\{mean,sd\};
+179 
+180 
+181     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0 ;  i<row;  ++i) 
+182     \{
+183         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} k =0 ;  k<col ;  ++k) 
+184         \{
+185               matrix[i][k] =  d(gen) ;      
+186         
+187         \}
+188     \}
+189  
+190 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMatrix_afdc70f8e656996481f5a6b970189c64b}\label{classMatrix_afdc70f8e656996481f5a6b970189c64b}} 
+\index{Matrix@{Matrix}!diag@{diag}}
+\index{diag@{diag}!Matrix@{Matrix}}
+\subsubsection{\texorpdfstring{diag()}{diag()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::vector$<$ T $>$ \hyperlink{classMatrix}{Matrix}$<$ T $>$\+::diag (\begin{DoxyParamCaption}\item[{const int}]{id }\end{DoxyParamCaption}) const}
+
+
+
+Method to return the diagonal of a matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Integer number indicating which diagonal to extract. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The main diagonals has id = 0. The lower diagonal have negative id while upper diagonals have positive id. 
+\end{DoxyNote}
+
+
+Definition at line 238 of file my\+\_\+matrix.\+hpp.
+
+
+\begin{DoxyCode}
+239 \{
+240     \textcolor{keywordflow}{if} ( this->dimension(1) != this->dimension(2) ) 
+241         \textcolor{keywordflow}{throw} std::invalid\_argument(\textcolor{stringliteral}{"Diagonal only available for Square matrix"});  
+242 
+243 
+244 
+245     std::vector<T> diagonal ; 
+246 
+247     \textcolor{keywordflow}{if} (\textcolor{keywordtype}{id} <= 0 ) 
+248 \{
+249         
+250     
+251     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{size\_t} i = 0; i<row ; ++i)
+252     \{ 
+253             diagonal.push\_back(matrix[i+\textcolor{keywordtype}{id}][i]) ; 
+254     \}
+255 
+256 \}   
+257     
+258     \textcolor{keywordflow}{else}
+259 \{
+260     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{size\_t} i = 0 ; i<row ; ++i ) 
+261     \{   
+262         diagonal.push\_back(matrix[i][i+\textcolor{keywordtype}{id}]) ; 
+263     \}
+264 
+265 \}
+266 
+267 \textcolor{keywordflow}{return} diagonal; 
+268 
+269 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{my__matrix_8hpp}{my\+\_\+matrix.\+hpp}\end{DoxyCompactItemize}
