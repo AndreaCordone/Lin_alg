@@ -250,166 +250,173 @@ for (int row_idx = 0; row_idx != this->row; ++row_idx) {
       	
 }
 
-// Return the std::vector<std::vector>> attribute 
-template <typename T>
-std::vector<std::vector<T>> Matrix<T>::get_matrix () const { return this->matrix ; }  
+	// Return the std::vector<std::vector>> attribute 
+	template <typename T>
+	std::vector<std::vector<T>> Matrix<T>::get_matrix () const { return this->matrix ; }  
 
 
-// Multuply by a scalar 
-template <typename U>	
-Matrix<U> operator * (const Matrix<U> & a, const U & scalar ) {
+	// Multuply by a scalar 
+	template <typename U>	
+	Matrix<U> operator * (const Matrix<U> & a, const U & scalar ) {
 
 
-std::vector<std::vector<U>> src = a.get_matrix() ; 
-std::vector<std::vector<U>> dst(a.dimension(1),std::vector<U>(a.dimension(2),0))	;  
+	std::vector<std::vector<U>> src = a.get_matrix() ; 
+	std::vector<std::vector<U>> dst(a.dimension(1),std::vector<U>(a.dimension(2),0))	;  
 
-for (auto it = std::make_pair(src.begin(),dst.begin()) ; it.first != src.end() ; ++it.first,++it.second ) {
-	
-std::transform(it.first->begin(), it.first->end(), it.second->begin(), [& scalar](auto & it_value ){ return scalar*it_value;});
- 
-}
-
-Matrix<U> res (a.dimension(1),a.dimension(2),dst) ; 
- 
-return  res ; 
-} 
-
-
-// Methods to perform matrix multiplication 
-template <typename T>
-Matrix<T> operator * (const Matrix<T> & a , const Matrix<T> & b ) {
-
-if (  a.dimension(2)!= b.dimension(1) ) { 
-         	
-	std::cout<< "Matrix dimension are:"<<a.dimension(1)<<"x"<<a.dimension(2)<<" and "<<b.dimension(1)<<"x"<<b.dimension(2)<<std::endl ; 
-	throw std::invalid_argument ( " Matrix dimension must agree for matrix multiplication " ); \
-
-}  
-	
-Matrix<T> res (a.dimension(1) , b.dimension(2) ) ; 
-
- for ( uint i = 0; i<a.dimension(1); i++ ) {
-
-	for ( uint k =  0 ; k<a.dimension(2) ; k++ ) {
-
-		res(i,k)  += a(i,k)*b(i,k) ;  
-
+	for (auto it = std::make_pair(src.begin(),dst.begin()) ; it.first != src.end() ; ++it.first,++it.second ) {
+		
+	std::transform(it.first->begin(), it.first->end(), it.second->begin(), [& scalar](auto & it_value ){ return scalar*it_value;});
+	 
 	}
 
- }
-return res ; 
-}	
+	Matrix<U> res (a.dimension(1),a.dimension(2),dst) ; 
+	 
+	return  res ; 
+	} 
 
 
-// Gauss elimination 
-template <typename T>
-Matrix<T> Matrix<T>::gauss_elimination()  {
+	// Methods to perform matrix multiplication 
+	template <typename T>
+	Matrix<T> operator * (const Matrix<T> & a , const Matrix<T> & b ) {
 
-	if ( this->dimension(1) != this->dimension(2) ) 
-{
+	if (  a.dimension(2)!= b.dimension(1) ) { 
+			
+		std::cout<< "Matrix dimension are:"<<a.dimension(1)<<"x"<<a.dimension(2)<<" and "<<b.dimension(1)<<"x"<<b.dimension(2)<<std::endl ; 
+		throw std::invalid_argument ( " Matrix dimension must agree for matrix multiplication " ); \
 
-	throw std::invalid_argument ( " Gauss elimination only implemented for square matrices" ) ; 
-}
-
-	std::vector<std::vector<T>> res  = this->matrix;   
-        
-
+	}  
 		
-	for( unsigned int i = 0; i<row-1 ; i++ ) 
+	Matrix<T> res (a.dimension(1) , b.dimension(2) ) ; 
+
+	 for ( uint i = 0; i<a.dimension(1); i++ ) {
+
+		for ( uint k =  0 ; k<a.dimension(2) ; k++ ) {
+
+			res(i,k)  += a(i,k)*b(i,k) ;  
+
+		}
+
+	 }
+	return res ; 
+	}	
+
+
+	// Gauss elimination 
+	template <typename T>
+	Matrix<T> Matrix<T>::gauss_elimination()  {
+
+		if ( this->dimension(1) != this->dimension(2) ) 
 	{
 
-		if ( res[i][i] == 0 ) 
-
-		{  
-			T max_el = 0 ; 
-			size_t idx_max = 0 ; 
-
-			for ( size_t k = i+1 ; k<col-1 ; ++k ) 
-			{
-				if (std::abs(res[i+1][k]) > max_el)  
-				{  
-					max_el  = res[k][i] ;
-					idx_max = k ; 
-				}
-			}		
-			
-			std::vector<T> temp = res[i]; 
-			res[i] = res[idx_max];
-		        res[idx_max] = temp ; 	
-			sign = sign*-1 ; 	
-		}	
-
-
-
-	for (unsigned int j = i+1; j<col ; j++) 
-	{
-
-
-	      T factor = res[j][i] / res[i][i] ; 
-			
-	      for ( unsigned int k = i ; k < col ; k++ ) 
-	      {
-
-                           res[j][k] = res[j][k] - factor*res[i][k] ; 
-                           
-	      }		
+		throw std::invalid_argument ( " Gauss elimination only implemented for square matrices" ) ; 
 	}
-}
 
-
-Matrix<T> result (res)  ; 
-result.sign = sign ; 
-return result; 
-
-}
-
-
-// Return the determinant 
-template <typename T>
-T Matrix<T>::det() 
-{
-
-	Matrix<T> up_triag = this.gauss_elimination() ; 
-	std::vector<T> diag = up_triag.diag(); 
-       	double det = std::accumulate(begin(diag), end(diag), 1, std::multiplies<T>());
-
-
-}
-
-// Return the submatrix 
-template <typename T>
-Matrix<T> Matrix<T>::operator () ( const uint &row1, const uint &row2, const uint &col1, const uint &col2) 
-{
+		std::vector<std::vector<T>> res  = this->matrix;   
 		
-		unsigned int size_row = row2-row1 +1 ; 
-		unsigned int size_col = col2-col1 +1 ; 
 
-		std::vector<std::vector<T>> res ( size_row , std::vector<T>(size_col, 0))  ; 
-		
-		for ( size_t i = row1; i<=row2 ; ++i ) 
+			
+		for( unsigned int i = 0; i<row-1 ; i++ ) 
 		{
+
+			if ( res[i][i] == 0 ) 
+
+			{  
+				T max_el = 0 ; 
+				size_t idx_max = 0 ; 
+
+				for ( size_t k = i+1 ; k<col-1 ; ++k ) 
+				{
+					if (std::abs(res[i+1][k]) > max_el)  
+					{  
+						max_el  = res[k][i] ;
+						idx_max = k ; 
+					}
+				}		
+				
+				std::vector<T> temp = res[i]; 
+				res[i] = res[idx_max];
+				res[idx_max] = temp ; 	
+				sign = sign*-1 ; 	
+			}	
+
+
+
+		for (unsigned int j = i+1; j<col ; j++) 
+		{
+
+
+		      T factor = res[j][i] / res[i][i] ; 
+				
+		      for ( unsigned int k = i ; k < col ; k++ ) 
+		      {
+
+				   res[j][k] = res[j][k] - factor*res[i][k] ; 
+				   
+		      }		
+		}
+	}
+
+
+	Matrix<T> result (res)  ; 
+	result.sign = sign ; 
+	return result; 
+
+	}
+
+
+	// Return the determinant 
+	template <typename T>
+	T Matrix<T>::det() 
+	{
+
+		Matrix<T> up_triag = this->gauss_elimination() ; 
+		
+		std::vector<T> diagonal = up_triag.diag(0);
+
+		T  det = std::accumulate(diagonal.begin(),diagonal.end(), 1.0, std::multiplies<T>());
+		
+		
+		return det;  
+
+
+
+
+	}
+
+	// Return the submatrix 
+	template <typename T>
+	Matrix<T> Matrix<T>::operator () ( const uint &row1, const uint &row2, const uint &col1, const uint &col2) 
+	{
 			
-			for ( size_t k=col1; k<= col2; ++k ) 
+			unsigned int size_row = row2-row1 +1 ; 
+			unsigned int size_col = col2-col1 +1 ; 
+
+			std::vector<std::vector<T>> res ( size_row , std::vector<T>(size_col, 0))  ; 
+			
+			for ( size_t i = row1; i<=row2 ; ++i ) 
 			{
 				
-				res[i-row1][k-col1] = this->matrix[i][k] ; 
-			}
-		}	
+				for ( size_t k=col1; k<= col2; ++k ) 
+				{
+					
+					res[i-row1][k-col1] = this->matrix[i][k] ; 
+				}
+			}	
 
-	Matrix<T> result (res) ; 		
-	return result;	
-}	
-
-
-
-
-
+		Matrix<T> result (res) ; 		
+		return result;	
+	}	
 
 
 
 
 
-	
+
+
+
+
+
+		
 
 
 
