@@ -1,2 +1,5 @@
 #ignore documantation
 Doc/
+
+#ingore gch 
+*.gch
