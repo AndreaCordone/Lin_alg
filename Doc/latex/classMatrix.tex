@@ -1,0 +1,74 @@
+\hypertarget{classMatrix}{}\doxysection{Matrix$<$ T $>$ Class Template Reference}
+\label{classMatrix}\index{Matrix$<$ T $>$@{Matrix$<$ T $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMatrix_a0e344d342fe0ad5b208c69f9aa909306}\label{classMatrix_a0e344d342fe0ad5b208c69f9aa909306}} 
+{\bfseries Matrix} (const uint \&row, const uint \&col)
+\item 
+\mbox{\Hypertarget{classMatrix_acb7869d94f5e02b024a0d39d03ec78bd}\label{classMatrix_acb7869d94f5e02b024a0d39d03ec78bd}} 
+{\bfseries Matrix} (const uint \&row, const uint \&col, T matrix\+\_\+element)
+\item 
+\mbox{\Hypertarget{classMatrix_ad9291e60f6af703b79de72d8bcfa777b}\label{classMatrix_ad9291e60f6af703b79de72d8bcfa777b}} 
+{\bfseries Matrix} (std\+::initializer\+\_\+list$<$ std\+::vector$<$ T $>$$>$ init\+\_\+list)
+\item 
+\mbox{\Hypertarget{classMatrix_aace9a20f83d726ffb813fe40ea16bf84}\label{classMatrix_aace9a20f83d726ffb813fe40ea16bf84}} 
+{\bfseries Matrix} (std\+::vector$<$ std\+::vector$<$ T $>$$>$)
+\item 
+\mbox{\Hypertarget{classMatrix_a2b6e9de6b55a40317911aa6c7adfa72a}\label{classMatrix_a2b6e9de6b55a40317911aa6c7adfa72a}} 
+{\bfseries Matrix} (const uint \&row, const uint \&col, const double \&mean, const double \&sd)
+\item 
+\mbox{\Hypertarget{classMatrix_a42241ef961d7b919f3ec952e16ae0b55}\label{classMatrix_a42241ef961d7b919f3ec952e16ae0b55}} 
+std\+::vector$<$ std\+::vector$<$ T $>$ $>$ {\bfseries get\+\_\+matrix} () const
+\item 
+\mbox{\Hypertarget{classMatrix_afdc70f8e656996481f5a6b970189c64b}\label{classMatrix_afdc70f8e656996481f5a6b970189c64b}} 
+std\+::vector$<$ T $>$ {\bfseries diag} (const int id) const
+\item 
+\mbox{\Hypertarget{classMatrix_a3a9452f46689001f2f262f13d4600ea9}\label{classMatrix_a3a9452f46689001f2f262f13d4600ea9}} 
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ T $>$ {\bfseries operator()} (const uint \&row\+\_\+1, const uint \&row\+\_\+2, const uint \&col\+\_\+1, const uint \&col\+\_\+2)
+\item 
+\mbox{\Hypertarget{classMatrix_afdf86fadf4ac353f6f32e780a5016c25}\label{classMatrix_afdf86fadf4ac353f6f32e780a5016c25}} 
+T {\bfseries dimension} (const uint \&idx) const
+\item 
+\mbox{\Hypertarget{classMatrix_a8396ba9c5609d2fb1014262fbf172479}\label{classMatrix_a8396ba9c5609d2fb1014262fbf172479}} 
+T \& {\bfseries operator()} (const uint \&row\+\_\+idx, const uint \&col\+\_\+idx)
+\item 
+\mbox{\Hypertarget{classMatrix_ae6ab8af0e5d03eb8fe5f31d037b2e207}\label{classMatrix_ae6ab8af0e5d03eb8fe5f31d037b2e207}} 
+T {\bfseries operator()} (const uint \&row\+\_\+idx, const uint \&col\+\_\+idx) const
+\item 
+\mbox{\Hypertarget{classMatrix_aa0347b091217f8ea2a928efd860d4d26}\label{classMatrix_aa0347b091217f8ea2a928efd860d4d26}} 
+double {\bfseries determinant} ()
+\item 
+\mbox{\Hypertarget{classMatrix_abb26547343d449fbedc5bd3b24120927}\label{classMatrix_abb26547343d449fbedc5bd3b24120927}} 
+void {\bfseries Tr} ()
+\item 
+\mbox{\Hypertarget{classMatrix_af531b530699d08cb75b3ceabf22618fb}\label{classMatrix_af531b530699d08cb75b3ceabf22618fb}} 
+T {\bfseries det} ()
+\item 
+\mbox{\Hypertarget{classMatrix_afe220c54165e01d7b3d528c8425aff07}\label{classMatrix_afe220c54165e01d7b3d528c8425aff07}} 
+\mbox{\hyperlink{classMatrix}{Matrix}}$<$ T $>$ {\bfseries gauss\+\_\+elimination} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMatrix_a1dc63135b1211215f22dd9f691eaf1f9}\label{classMatrix_a1dc63135b1211215f22dd9f691eaf1f9}} 
+{\footnotesize template$<$typename U $>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}}$<$ U $>$ {\bfseries operator$\ast$} (const \mbox{\hyperlink{classMatrix}{Matrix}}$<$ U $>$ \&a, const U \&scalar)
+\item 
+\mbox{\Hypertarget{classMatrix_abe73619c6b45315d7efd6a2074ed71bd}\label{classMatrix_abe73619c6b45315d7efd6a2074ed71bd}} 
+{\footnotesize template$<$typename U $>$ }\\std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&out, const \mbox{\hyperlink{classMatrix}{Matrix}}$<$ U $>$ \&a)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Matrix$<$ T $>$}
+
+
+
+Definition at line 11 of file my\+\_\+matrix.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+my\+\_\+matrix.\+hpp\end{DoxyCompactItemize}
